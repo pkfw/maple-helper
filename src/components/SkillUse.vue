@@ -63,22 +63,35 @@ export default {
   },
   data() {
     return {
+      key: "",
       keyPress: "키보드를 입력하세요."
     }
   },
   methods:{
     onKeydown( event ) {
       // 키이벤트 전처리
-      console.log(event.key)
-      this.keyPressNow(event.key)
+      console.log(event.key);
+      this.key = event.key;
+      this.keyPressDown();
     },
-    keyPressNow(key) {
-      if(key == "s" || key == "e" || key == "r" || key == "f") {       
-        this.keyPress = key;
+    keyPressDown(key) {
+      if(this.key == "s" || this.key == "e" || this.key == "r" || this.key == "f") {       
+        this.keyPress = this.key;
       } else {
         this.keyPress = "잘못된 키"
       }
       this.keyPress += " 를 누르셨습니다."
+    },
+    keyPreprocessing() {
+      if(this.key == "S" || this.key == "ㄴ") {
+        this.key = "s";
+      } else if(this.key == "E" || this.key == "ㄷ") {
+        this.key = "e";
+      } else if(this.key == "R" || this.key == "ㄱ") {
+        this.key = "r";
+      } else if(this.key == "F" || this.key == "ㄹ") {
+        this.key = "f";
+      }
     }
   },
   mounted() {
